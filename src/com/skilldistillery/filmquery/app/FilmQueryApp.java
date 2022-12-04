@@ -71,6 +71,8 @@ public class FilmQueryApp {
 						|| Integer.parseInt(response) == 3) {
 					validInput = true;
 					formattedResponse = Integer.parseInt(response);
+				} else {
+					System.out.println("Please enter a valid option from the menu.");
 				}
 			} catch (Exception e) {
 				System.out.println("Please enter a valid option from the menu.");
@@ -127,10 +129,12 @@ public class FilmQueryApp {
 			int counter = 0;
 			
 			System.out.println();
+			System.out.println("ID | Title | Release Year | Rating | Description | Language | Catgegory");
+			System.out.println("-----------------------------------------------------------------------");
 			for (Film film : films) {
 				counter++;
 				System.out.println(film.getFilmId() + " | " + film.getTitle() + " | " + film.getReleaseYear() + " | "
-						+ film.getRating() + " | " + film.getDescription()+ " | " + ((DatabaseAccessorObject)db).findLanguageByID(film.getFilmId()));
+						+ film.getRating() + " | " + film.getDescription()+ " | " + ((DatabaseAccessorObject)db).findLanguageByID(film.getFilmId()) + " | " + film.getCategories());
 				
 				//Let's print out all of the actors, with a bit of formatting depending on their index
 				for (Actor actors : film.getActors()) {
@@ -173,8 +177,10 @@ public class FilmQueryApp {
 			System.out.println("There is no film matching the ID: " + response);
 		} else {
 			System.out.println();
+			System.out.println("ID | Title | Release Year | Rating | Description | Language | Catgegory");
+			System.out.println("-----------------------------------------------------------------------");
 			System.out.println(film.getFilmId() + " | " + film.getTitle() + " | " + film.getReleaseYear() + " | "
-					+ film.getRating() + " | " + film.getDescription() + " | " + ((DatabaseAccessorObject)db).findLanguageByID(film.getFilmId()));
+					+ film.getRating() + " | " + film.getDescription() + " | " + ((DatabaseAccessorObject)db).findLanguageByID(film.getFilmId()) + " | " + film.getCategories());
 			
 			//Let's print out all of the actors, with a bit of formatting depending on their index
 			for (Actor actors : film.getActors()) {

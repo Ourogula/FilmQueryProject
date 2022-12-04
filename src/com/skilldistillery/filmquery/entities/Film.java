@@ -17,6 +17,7 @@ public class Film {
 	private String rating;
 	private String features;
 	private List<Actor> actors;
+	private List<String> categories;
 	
 	public Film () {
 		
@@ -43,7 +44,19 @@ public class Film {
 		this.actors = actors;
 	}
 	
-	
+	public Film(int filmId, String title, String description, short releaseYear, int languageId, int rentalDuration,
+			double rate, int length, double reparationCost, String rating, String features, List<Actor> actors, List<String> categories) {
+		this(filmId, title, description, releaseYear, languageId, rentalDuration, rate, length, reparationCost, rating, features, actors);
+		this.categories = categories;
+	}
+
+	public List<String> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<String> categories) {
+		this.categories = categories;
+	}
 
 	public String getDescription() {
 		return description;
@@ -163,7 +176,7 @@ public class Film {
 		return "Film [filmId=" + filmId + ", title=" + title + ", description=" + description + ", releaseYear="
 				+ releaseYear + ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rate=" + rate
 				+ ", length=" + length + ", reparationCost=" + reparationCost + ", rating=" + rating + ", features="
-				+ features + ", actors=" + actors + "]";
+				+ features + ", actors=" + actors + ", categories=" + categories + "]";
 	}
 
 }
