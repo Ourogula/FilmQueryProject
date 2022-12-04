@@ -1,6 +1,7 @@
 package com.skilldistillery.filmquery.entities;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Actor {
 	
@@ -56,6 +57,23 @@ public class Actor {
 	public void setFilms(List<Film> films) {
 		this.films = films;
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Actor other = (Actor) obj;
+		return id == other.id;
+	}
+
 	@Override
 	public String toString() {
 		return "Actor [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
