@@ -50,7 +50,8 @@ public class FilmQueryApp {
 		System.out.println("****************************");
 		System.out.println("* 1: Find Film by ID       *");
 		System.out.println("* 2: Find Film by Keyword  *");
-		System.out.println("* 3: Exit                  *");
+		System.out.println("* 3: Find Actor by ID      *");
+		System.out.println("* 4: Exit                  *");
 		System.out.println("****************************");
 	}
 
@@ -68,7 +69,7 @@ public class FilmQueryApp {
 			response = input.nextLine();
 			try {
 				if (Integer.parseInt(response) == 1 || Integer.parseInt(response) == 2
-						|| Integer.parseInt(response) == 3) {
+						|| Integer.parseInt(response) == 3 || Integer.parseInt(response) == 4) {
 					validInput = true;
 					formattedResponse = Integer.parseInt(response);
 				} else {
@@ -96,6 +97,13 @@ public class FilmQueryApp {
 			}
 			break;
 		case 3:
+			try {
+				actorByIdQuery(input);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
+		case 4:
 			System.out.println("Thanks for using our application!");
 			again = false;
 			break;
@@ -124,7 +132,7 @@ public class FilmQueryApp {
 		List<Film> films = db.findFilmsByQuery(response);
 
 		if (films.isEmpty()) {
-			System.out.println("There is no film matching the ID: " + response);
+			System.out.println("There is no film matching the Query: " + response);
 		} else {
 			int counter = 0;
 			
@@ -167,6 +175,7 @@ public class FilmQueryApp {
 				input.nextLine();
 				validInput = true;
 			} catch (Exception e) {
+				input.nextLine();
 				System.out.println("Please input a valid film ID.");
 			}
 		}
@@ -191,6 +200,45 @@ public class FilmQueryApp {
 				if (actors != film.getActors().get(film.getActors().size() - 1)) {
 					System.out.print(", ");
 				}
+			}
+			System.out.println();
+			System.out.println();
+		}
+	}
+	
+	private void actorByIdQuery (Scanner input) throws SQLException {
+		boolean validInput = false;
+		int response = 0;
+
+		while (!validInput) {
+			try {
+				System.out.println("Please input the actor ID you are inquiring about: ");
+				response = input.nextInt();
+				input.nextLine();
+				validInput = true;
+			} catch (Exception e) {
+				input.nextLine();
+				System.out.println("Please input a valid actor ID.");
+			}
+		}
+
+		Actor actor = db.findActorById(response);
+
+		if (actor == null) {
+			System.out.println("There is no actor matching the ID: " + response);
+		} else {
+			int count = 1;
+			System.out.println();
+			System.out.println(response + " | " + actor.getFirstName() + " " + actor.getLastName());
+			for (Film film : actor.getFilms()) {
+				System.out.print(film.getTitle());
+				if (count % 5 == 0) {
+					System.out.println();
+				}
+				else if (film != actor.getFilms().get(actor.getFilms().size() - 1)) {
+					System.out.print(" | ");
+				}
+				count++;
 			}
 			System.out.println();
 			System.out.println();

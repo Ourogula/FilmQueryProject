@@ -94,7 +94,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return films;
 	}
 
-	// Return a List of Films when given an Actor's ID
+	// Return a List of Films when given an Actor's ID, only used internally currently
 	public List<Film> findFilmsByActorId(int actorId) {
 		List<Film> films = new ArrayList<>();
 		String user = "student";
